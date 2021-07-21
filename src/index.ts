@@ -153,7 +153,6 @@ export default class LedgerLivePlatformSDK {
    */
   async disconnect(): Promise<void> {
     delete this.serverAndClient;
-    // eslint-disable-next-line @typescript-eslint/await-thenable
     await this.transport.disconnect();
     this.logger.log("disconnected", this.transport);
   }
