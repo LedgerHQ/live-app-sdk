@@ -27,7 +27,7 @@ export default class LedgerLiveSDKMock
       | "completeExchange"
       | "estimateTransactionFees"
       | "getDeviceInfo"
-      | "initExchange"
+      | "startExchange"
       | "listApps"
       | "synchronizeAccount"
     >

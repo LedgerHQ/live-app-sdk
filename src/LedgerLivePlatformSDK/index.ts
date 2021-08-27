@@ -134,30 +134,46 @@ export default class LedgerLivePlatformSDK {
    * @ignore Not yet implemented
    * Start the exchange process by generating a nonce on Ledger device
    * @param {ExchangeType} exchangeType
-   * @param {string} partnerName
    *
    * @returns {Promise<string>} The nonce of the exchange
    */
-  async initExchange(
-    _exchangeType: ExchangeType,
-    _partnerName: string
-  ): Promise<string> {
-    throw new Error("Function is not implemented yet");
+  async startExchange(_exchangeType?: ExchangeType): Promise<string> {
+    const exchangeType = { SWAP: 0x00, SELL: 0x01, FUND: 0x02 }[
+      _exchangeType || "SWAP"
+    ];
+    return this._request("exchange.start", { exchangeType });
   }
 
   /**
    * @ignore Not yet implemented
    * Complete an exchange process by passing by the exchange content and its signature.
-   * @param {ExchangePayload} exchangePayload
-   * @param {EcdsaSignature} payloadSignature
-   * @param {FeesLevel} txFeesLevel
+   * We are chaining the success of the triggered device action with a silent sign and broadcast.
+   * @param {ExchangePayload} exchangePayload - Blueprint of the data that we'll allow signing
+   * @param {EcdsaSignature} payloadSignature - Ensures the source of the payload
+   * @param {FeesLevel} feesStrategy - Slow / Medium / Fast
+   * @param {string} provider - Used to verify the signature
+   *
+   * @returns {Promise<SignedTransaction>}
    */
   async completeExchange(
-    _exchangePayload: ExchangePayload,
-    _payloadSignature: EcdsaSignature,
-    _txFeesLevel: FeesLevel
+    provider: string,
+    fromAccountId: string,
+    toAccountId: string,
+    transaction: Transaction,
+
+    binaryPayload: ExchangePayload,
+    signature: EcdsaSignature,
+    feesStrategy: FeesLevel
   ): Promise<void> {
-    throw new Error("Function is not implemented yet");
+    return this._request("exchange.complete", {
+      provider,
+      fromAccountId,
+      toAccountId,
+      transaction,
+      binaryPayload,
+      signature,
+      feesStrategy,
+    });
   }
 
   /**
