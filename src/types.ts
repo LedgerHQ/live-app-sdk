@@ -134,9 +134,9 @@ export type DeviceDetails = {
  * Enum describing the different types of exchanges.
  */
 export enum ExchangeType {
-  SWAP = "SWAP",
-  SELL = "SELL",
-  FUND = "FUND",
+  SWAP = 0x00,
+  SELL = 0x01,
+  FUND = 0x02,
 }
 
 /**
