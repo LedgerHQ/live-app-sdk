@@ -13,6 +13,8 @@ import Logger from "../logger";
 import { RawAccount, RawSignedTransaction } from "../rawTypes";
 import { deserializeAccount, serializeTransaction } from "../serializers";
 
+import { ExchangeType } from "../types";
+
 import type {
   Account,
   ApplicationDetails,
@@ -21,7 +23,6 @@ import type {
   EcdsaSignature,
   EstimatedFees,
   ExchangePayload,
-  ExchangeType,
   FeesLevel,
   Transaction,
   Transport,
