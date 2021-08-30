@@ -122,10 +122,9 @@ export default class LedgerLivePlatformSDK {
    *
    * @returns {Promise<string>} The nonce of the exchange
    */
-  async startExchange(_exchangeType?: ExchangeType): Promise<string> {
-    const exchangeType = { SWAP: 0x00, SELL: 0x01, FUND: 0x02 }[
-      _exchangeType || "SWAP"
-    ];
+  async startExchange(
+    exchangeType: ExchangeType = ExchangeType.FUND
+  ): Promise<string> {
     return this._request("exchange.start", { exchangeType });
   }
 
