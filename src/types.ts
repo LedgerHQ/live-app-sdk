@@ -23,7 +23,7 @@ export interface Transport {
  * Metadata used to describe a secure exchange between a Ledger device
  * and a partner (for sell, swap and funding), the information is a
  * hex string of a protobuf containing all the data from the exchange
- * @ref: https://github.com/LedgerHQ/app-exchange/sblob/master/src/proto/protocol.proto
+ * @ref: https://github.com/LedgerHQ/app-exchange/blob/master/src/proto/protocol.proto
  */
 export type ExchangePayload = string;
 
