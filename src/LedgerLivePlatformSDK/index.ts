@@ -124,7 +124,11 @@ export default class LedgerLivePlatformSDK {
    *
    * @returns {Promise<ExchangeDeviceTxId>}
    */
-  async startExchange(exchangeType: ExchangeType): Promise<ExchangeDeviceTxId> {
+  async startExchange({
+    exchangeType,
+  }: {
+    exchangeType: ExchangeType;
+  }): Promise<ExchangeDeviceTxId> {
     return this._request("exchange.start", { exchangeType });
   }
 
@@ -142,16 +146,25 @@ export default class LedgerLivePlatformSDK {
    *
    * @returns {Promise<SignedTransaction>}
    */
-  async completeExchange(
-    provider: string,
-    fromAccountId: string,
-    toAccountId?: string,
-    transaction: Transaction,
-    binaryPayload: ExchangePayload,
-    signature: EcdsaSignature,
-    feesStrategy: FeesLevel,
-    exchangeType: ExchangeType
-  ): Promise<SignedTransaction> {
+  async completeExchange({
+    provider,
+    fromAccountId,
+    toAccountId,
+    transaction,
+    binaryPayload,
+    signature,
+    feesStrategy,
+    exchangeType,
+  }: {
+    provider: string;
+    fromAccountId: string;
+    toAccountId?: string;
+    transaction: Transaction;
+    binaryPayload: ExchangePayload;
+    signature: EcdsaSignature;
+    feesStrategy: FeesLevel;
+    exchangeType: ExchangeType;
+  }): Promise<SignedTransaction> {
     if (exchangeType === ExchangeType.SWAP && !toAccountId) {
       throw new Error("Missing parameter 'toAccountId' for a swap operation");
     }
