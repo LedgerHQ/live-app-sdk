@@ -27,6 +27,8 @@ export interface Transport {
  */
 export type ExchangePayload = string;
 
+export type ExchangeDeviceTxId = string;
+
 export type EcdsaSignature = string;
 
 export enum FeesLevel {
