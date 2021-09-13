@@ -144,7 +144,7 @@ export default class LedgerLivePlatformSDK {
    * @param {FeesLevel} feesStrategy - Slow / Medium / Fast
    * @param {ExchangeType} exchangeType - used by the exchange transport to discern between swap/sell/fund
    *
-   * @returns {Promise<SignedTransaction>}
+   * @returns {Promise<RawSignedTransaction>}
    */
   async completeExchange({
     provider,
@@ -164,7 +164,7 @@ export default class LedgerLivePlatformSDK {
     signature: EcdsaSignature;
     feesStrategy: FeesLevel;
     exchangeType: ExchangeType;
-  }): Promise<SignedTransaction> {
+  }): Promise<RawSignedTransaction> {
     if (exchangeType === ExchangeType.SWAP && !toAccountId) {
       throw new Error("Missing parameter 'toAccountId' for a swap operation");
     }
