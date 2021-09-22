@@ -1,3 +1,7 @@
+/**
+ * @module LedgerLivePlatformSDK
+ */
+
 import {
   JSONRPCServerAndClient,
   JSONRPCParams,
@@ -22,19 +26,23 @@ import type {
   Transaction,
   Transport,
 } from "../types";
-import type {
-  ListCurrenciesParams,
-  RequestAccountParams,
-  SignTransactionParams,
-} from "./params.types";
 
 const defaultLogger = new Logger("LL-PlatformSDK");
 
 export default class LedgerLivePlatformSDK {
+  /**
+   * @internal
+   */
   private transport: Transport;
 
+  /**
+   * @internal
+   */
   private logger: Logger;
 
+  /**
+   * @internal
+   */
   private serverAndClient?: JSONRPCServerAndClient;
 
   constructor(transport: Transport, logger: Logger = defaultLogger) {
@@ -43,6 +51,7 @@ export default class LedgerLivePlatformSDK {
   }
 
   /**
+   * @internal
    * Wrapper to api request for logging
    */
   private async _request<T>(
@@ -67,6 +76,10 @@ export default class LedgerLivePlatformSDK {
 
   /**
    * Connect the SDK to the Ledger Live instance
+   *
+   * @remarks
+   *
+   * Establish the connection with Ledger Live through the [[transport]] instance provided at initialization
    */
   connect(): void {
     const serverAndClient = new JSONRPCServerAndClient(
@@ -91,11 +104,12 @@ export default class LedgerLivePlatformSDK {
   }
 
   /**
+   * @ignore Not yet implemented
    * Open a bridge to an application to exchange APDUs with a device application
-   * @param {string} appName The name of the application to bridge
-   * @param {<Result>(DeviceBridge) => Promise<Result>} handler A function using the bridge to send command to a device
+   * @param _appName - The name of the application to bridge
+   * @param _handler - A function using the bridge to send command to a device
    *
-   * @returns {Promise<Result>} The result of the handler function
+   * @returns The result of the handler function
    */
   async bridgeApp<Result>(
     _appName: string,
@@ -105,6 +119,7 @@ export default class LedgerLivePlatformSDK {
   }
 
   /**
+   * @ignore Not yet implemented
    * Open a bridge to a the device dashboard to exchange APDUs
    * @param {<Result>(DeviceBridge) => Promise<Result>} handler A function using the bridge to send command to a device
    *
@@ -117,6 +132,7 @@ export default class LedgerLivePlatformSDK {
   }
 
   /**
+   * @ignore Not yet implemented
    * Start the exchange process by generating a nonce on Ledger device
    * @param {ExchangeType} exchangeType
    * @param {string} partnerName
@@ -131,6 +147,7 @@ export default class LedgerLivePlatformSDK {
   }
 
   /**
+   * @ignore Not yet implemented
    * Complete an exchange process by passing by the exchange content and its signature.
    * @param {ExchangePayload} exchangePayload
    * @param {EcdsaSignature} payloadSignature
@@ -146,16 +163,21 @@ export default class LedgerLivePlatformSDK {
 
   /**
    * Let user sign a transaction through Ledger Live
-   * @param {string} accountId - LL id of the account
-   * @param {Transaction} transaction  - the transaction in the currency family-specific format
-   * @param {SignTransactionParams} params - parameters for the sign modal
+   * @param accountId - LL id of the account
+   * @param transaction - The transaction object in the currency family-specific format
+   * @param params - Parameters for the sign modal
    *
-   * @returns {Promise<RawSignedTransaction>} - the raw signed transaction to broadcast
+   * @returns The raw signed transaction to broadcast
    */
   async signTransaction(
     accountId: string,
     transaction: Transaction,
-    params?: SignTransactionParams
+    params?: {
+      /**
+       * The name of the Ledger Nano app to use for the signing process
+       */
+      useApp: string;
+    }
   ): Promise<RawSignedTransaction> {
     return this._request<RawSignedTransaction>("transaction.sign", {
       accountId,
@@ -165,11 +187,11 @@ export default class LedgerLivePlatformSDK {
   }
 
   /**
-   * Broadcast a signed transaction through Ledger Live, providing an optimistic Operation given by signTransaction
-   * @param {string} accountId - LL id of the account
-   * @param {RawSignedTransaction} signedTransaction - a raw signed transaction returned by LL when signing
+   * Broadcast a previously signed transaction through Ledger Live
+   * @param accountId - LL id of the account
+   * @param signedTransaction - A [[RawSignedTransaction]] returned by LL when signing with [[signTransaction]]
    *
-   * @returns {Promise<string>} - hash of the transaction
+   * @returns The hash of the transaction
    */
   async broadcastSignedTransaction(
     accountId: string,
@@ -182,11 +204,12 @@ export default class LedgerLivePlatformSDK {
   }
 
   /**
+   * @ignore Not yet implemented
    * Estimate fees required to successfully broadcast a transaction.
-   * @param {string} accountId - LL id of the account
-   * @param {Transaction} transaction - the transaction to estimate
+   * @param accountId - LL id of the account
+   * @param transaction - The transaction to estimate
    *
-   * @returns {Promise<EstimatedFees>} - Estimated fees for 3 level of confirmation speed
+   * @returns Estimated fees for 3 level of confirmation speed
    */
   async estimateTransactionFees(
     _accountId: string,
@@ -198,7 +221,7 @@ export default class LedgerLivePlatformSDK {
   /**
    * List accounts added by user on Ledger Live
    *
-   * @returns {Account[]}
+   * @returns The list of accounts added by the current user on Ledger Live
    */
   async listAccounts(): Promise<Account[]> {
     const rawAccounts = await this._request<RawAccount[]>("account.list");
@@ -209,10 +232,14 @@ export default class LedgerLivePlatformSDK {
   /**
    * Let user choose an account in a Ledger Live, providing filters for choosing currency or allowing add account.
    *
-   * @param {RequestAccountParams} params - parameters for the request modal
-   * @returns {Promise<Account>}
+   * @param params - Parameters for the request modal
+   *
+   * @returns The account selected by the user
    */
-  async requestAccount(params: RequestAccountParams): Promise<Account> {
+  async requestAccount(params: {
+    currencies?: string[];
+    allowAddAccount?: boolean;
+  }): Promise<Account> {
     const rawAccount = await this._request<RawAccount>(
       "account.request",
       params
@@ -224,16 +251,18 @@ export default class LedgerLivePlatformSDK {
   /**
    * Let user verify it's account address on his device through Ledger Live
    *
-   * @param {string} accountId - LL id of the account
-   * @returns {Promise<string>} - the verified address
+   * @param accountId - LL id of the account
+   *
+   * @returns The verified address
    */
   async receive(accountId: string): Promise<string> {
     return this._request("account.receive", { accountId });
   }
 
   /**
+   * @ignore Not yet implemented
    * Synchronize an account with its network and return an updated view of the account
-   * @param {string} accountId The id of the account to synchronize
+   * @param accountId - The id of the account to synchronize
    *
    * @returns {Promise<Account>} An updated view of the account
    */
@@ -242,16 +271,29 @@ export default class LedgerLivePlatformSDK {
   }
 
   /**
-   * List crypto-currencies supported by Ledger Live, providing filters by name or ticker
+   * List crypto currencies supported by Ledger Live, providing filters by name or ticker
    *
-   * @param {ListCurrenciesParams} params - filters for currencies
-   * @returns {Promise<Currency[]>}
+   * @param params - Filters for currencies
+   *
+   * @returns The list of corresponding crypto currencies
+   *
+   * @beta Filtering not yet implemented
    */
-  async listCurrencies(params?: ListCurrenciesParams): Promise<Currency[]> {
+  async listCurrencies(params?: {
+    /**
+     * name of the currency
+     */
+    name?: string;
+    /**
+     * ticker of the currency
+     */
+    ticker?: string;
+  }): Promise<Currency[]> {
     return this._request("currency.list", params || {});
   }
 
   /**
+   * @ignore Not yet implemented
    * Get information about a currently connected device (firmware version...)
    *
    * @returns {Promise<DeviceDetails>} Informations about a currently connected device
@@ -261,6 +303,7 @@ export default class LedgerLivePlatformSDK {
   }
 
   /**
+   * @ignore Not yet implemented
    * List applications opened on a currently connected device
    *
    * @returns {Promise<ApplicationDetails[]>} The list of applications
