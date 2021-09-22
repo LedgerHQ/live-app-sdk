@@ -78,7 +78,6 @@ export default class LedgerLivePlatformSDK {
    * Connect the SDK to the Ledger Live instance
    *
    * @remarks
-   *
    * Establish the connection with Ledger Live through the [[transport]] instance provided at initialization
    */
   connect(): void {
@@ -271,11 +270,11 @@ export default class LedgerLivePlatformSDK {
   }
 
   /**
-   * List crypto currencies supported by Ledger Live, providing filters by name or ticker
+   * List cryptocurrencies supported by Ledger Live, providing filters by name or ticker
    *
    * @param params - Filters for currencies
    *
-   * @returns The list of corresponding crypto currencies
+   * @returns The list of corresponding cryptocurrencies
    *
    * @beta Filtering not yet implemented
    */
