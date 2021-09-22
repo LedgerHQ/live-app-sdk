@@ -1,6 +1,5 @@
 /* istanbul ignore file */
 import data from "./mocks.json";
-import type { RequestAccountParams } from "../LedgerLivePlatformSDK/params.types";
 import generateRandomTxID from "./generateRandomTxID";
 import type { Account, Currency } from "../types";
 import { deserializeAccount } from "../serializers";
@@ -45,7 +44,7 @@ export default class LedgerLiveSDKMock
 
   /** Legder Live Methods */
 
-  async requestAccount(_params: RequestAccountParams): Promise<Account> {
+  async requestAccount(): Promise<Account> {
     return Promise.resolve(accounts[0]);
   }
 
