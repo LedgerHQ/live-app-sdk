@@ -254,10 +254,12 @@ export default class LedgerLivePlatformSDK {
    *
    * @returns The account selected by the user
    */
-  async requestAccount(params: {
-    currencies?: string[];
-    allowAddAccount?: boolean;
-  }): Promise<Account> {
+  async requestAccount(
+    params: {
+      currencies?: string[];
+      allowAddAccount?: boolean;
+    } = {}
+  ): Promise<Account> {
     const rawAccount = await this._request<RawAccount>(
       "account.request",
       params
