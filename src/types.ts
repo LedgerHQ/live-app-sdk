@@ -77,7 +77,9 @@ export interface TransactionCommon {
 }
 
 /**
- * Generic transaction type combining each individual cryptocurrency transaction type handled
+ * Description of an unsigned transaction. This type is used to build transaction
+ * and then sign them by a Ledger device and finally broadcast them to the network
+ * upon user validation.
  */
 export type Transaction =
   | EthereumTransaction
@@ -91,18 +93,6 @@ export type Transaction =
   | StellarTransaction
   | TronTransaction;
 
-/**
- * @ignore Not yet used / implemented
- */
-export type EstimatedFees = {
-  low: number;
-  standard: number;
-  high: number;
-};
-
-/**
- * List of available Ledger devices
- */
 export enum DeviceModel {
   /**
    * Represents the Ledger Blue hardware device
@@ -121,7 +111,7 @@ export enum DeviceModel {
 /**
  * Information about a device
  */
-export type DeviceDetails = {
+export type DeviceInfo = {
   /**
    * The [[DeviceModel | model]] of the device
    */

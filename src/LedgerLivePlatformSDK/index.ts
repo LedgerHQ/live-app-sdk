@@ -8,7 +8,7 @@ import {
   JSONRPCServer,
   JSONRPCClient,
 } from "json-rpc-2.0";
-import DeviceBridge from "../deviceBridge";
+
 import Logger from "../logger";
 import { RawAccount, RawSignedTransaction } from "../rawTypes";
 import { deserializeAccount, serializeTransaction } from "../serializers";
@@ -19,15 +19,16 @@ import type {
   Account,
   ApplicationDetails,
   Currency,
-  DeviceDetails,
+  DeviceInfo,
   EcdsaSignature,
-  EstimatedFees,
   ExchangeDeviceTxId,
   ExchangePayload,
   FeesLevel,
   Transaction,
   Transport,
 } from "../types";
+
+import LedgerPlatformApduTransport from "./LedgerPlatformApduTransport";
 
 const defaultLogger = new Logger("LL-PlatformSDK");
 
@@ -96,7 +97,7 @@ export default class LedgerLivePlatformSDK {
   }
 
   /**
-   * Disconnect the SDK
+   * Disconnect the SDK.
    */
   disconnect(): void {
     delete this.serverAndClient;
@@ -112,23 +113,18 @@ export default class LedgerLivePlatformSDK {
    *
    * @returns The result of the handler function
    */
-  async bridgeApp<Result>(
-    _appName: string,
-    _handler: <Result>(deviceBridge: DeviceBridge) => Promise<Result>
-  ): Promise<Result> {
+  async bridgeApp(_appName: string): Promise<LedgerPlatformApduTransport> {
     throw new Error("Function is not implemented yet");
   }
 
   /**
    * @ignore Not yet implemented
    * Open a bridge to a the device dashboard to exchange APDUs
-   * @param {<Result>(DeviceBridge) => Promise<Result>} handler A function using the bridge to send command to a device
    *
-   * @returns {Promise<Result>} The result of the handler function
+   * @returns {Promise<LedgerPlatformApduTransport>} A APDU transport which can be used either to send raw APDU
+   * or used with ledgerjs libraries.
    */
-  async bridgeDashboard<Result>(
-    _handler: <Result>(deviceBridge: DeviceBridge) => Promise<Result>
-  ): Promise<Result> {
+  async bridgeDashboard(): Promise<LedgerPlatformApduTransport> {
     throw new Error("Function is not implemented yet");
   }
 
@@ -137,7 +133,7 @@ export default class LedgerLivePlatformSDK {
    * Start the exchange process by generating a nonce on Ledger device
    * @param {ExchangeType} exchangeType - used by the exchange transport to discern between swap/sell/fund
    *
-   * @returns {Promise<ExchangeDeviceTxId>}
+   * @returns {Promise<ExchangeDeviceTxId>} - A transaction ID used to complete the exchange process
    */
   async startExchange({
     exchangeType,
@@ -150,7 +146,8 @@ export default class LedgerLivePlatformSDK {
   /**
    * @ignore Not yet implemented
    * Complete an exchange process by passing by the exchange content and its signature.
-   * We are chaining the success of the triggered device action with a silent sign and broadcast
+   * User will be prompted on its device to approve the exchange.
+   * If the exchange is validated, the transaction is then signed and broadcasted to the network.
    * @param {string} provider - Used to verify the signature
    * @param {string} fromAccountId - Live identifier of the account used as a source for the tx
    * @param {string} toAccountId - (Swap) Live identifier of the account used as a destination
@@ -160,7 +157,7 @@ export default class LedgerLivePlatformSDK {
    * @param {FeesLevel} feesStrategy - Slow / Medium / Fast
    * @param {ExchangeType} exchangeType - used by the exchange transport to discern between swap/sell/fund
    *
-   * @returns {Promise<RawSignedTransaction>}
+   * @returns {Promise<RawSignedTransaction>} - The broadcasted transaction details.
    */
   async completeExchange({
     provider,
@@ -240,21 +237,6 @@ export default class LedgerLivePlatformSDK {
   }
 
   /**
-   * @ignore Not yet implemented
-   * Estimate fees required to successfully broadcast a transaction.
-   * @param accountId - LL id of the account
-   * @param transaction - The transaction to estimate
-   *
-   * @returns Estimated fees for 3 level of confirmation speed
-   */
-  async estimateTransactionFees(
-    _accountId: string,
-    _transaction: Transaction
-  ): Promise<EstimatedFees> {
-    throw new Error("Function is not implemented yet");
-  }
-
-  /**
    * List accounts added by user on Ledger Live
    *
    * @returns The list of accounts added by the current user on Ledger Live
@@ -300,7 +282,7 @@ export default class LedgerLivePlatformSDK {
    * Synchronize an account with its network and return an updated view of the account
    * @param accountId - The id of the account to synchronize
    *
-   * @returns {Promise<Account>} An updated view of the account
+   * @returns {Promise<Account>} - An updated view of the account
    */
   async synchronizeAccount(_accountId: string): Promise<Account> {
     throw new Error("Function is not implemented yet");
@@ -332,9 +314,9 @@ export default class LedgerLivePlatformSDK {
    * @ignore Not yet implemented
    * Get information about a currently connected device (firmware version...)
    *
-   * @returns {Promise<DeviceDetails>} Informations about a currently connected device
+   * @returns {Promise<DeviceInfo>} - Informations about the last connected device
    */
-  async getDeviceInfo(): Promise<DeviceDetails> {
+  async getLastConnectedDeviceInfo(): Promise<DeviceInfo> {
     throw new Error("Function is not implemented yet");
   }
 
@@ -342,7 +324,7 @@ export default class LedgerLivePlatformSDK {
    * @ignore Not yet implemented
    * List applications opened on a currently connected device
    *
-   * @returns {Promise<ApplicationDetails[]>} The list of applications
+   * @returns {Promise<ApplicationDetails[]>} - The list of applications
    */
   async listApps(): Promise<ApplicationDetails[]> {
     throw new Error("Function is not implemented yet");
