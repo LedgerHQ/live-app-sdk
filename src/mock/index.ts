@@ -25,11 +25,10 @@ export default class LedgerLiveSDKMock
       | "bridgeApp"
       | "bridgeDashboard"
       | "completeExchange"
-      | "estimateTransactionFees"
-      | "getDeviceInfo"
       | "startExchange"
       | "listApps"
       | "synchronizeAccount"
+      | "getLastConnectedDeviceInfo"
     >
 {
   connected = false;
