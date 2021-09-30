@@ -109,7 +109,6 @@ export default class LedgerLivePlatformSDK {
    * @ignore Not yet implemented
    * Open a bridge to an application to exchange APDUs with a device application
    * @param _appName - The name of the application to bridge
-   * @param _handler - A function using the bridge to send command to a device
    *
    * @returns The result of the handler function
    */
@@ -121,7 +120,7 @@ export default class LedgerLivePlatformSDK {
    * @ignore Not yet implemented
    * Open a bridge to a the device dashboard to exchange APDUs
    *
-   * @returns {Promise<LedgerPlatformApduTransport>} A APDU transport which can be used either to send raw APDU
+   * @returns A APDU transport which can be used either to send raw APDU
    * or used with ledgerjs libraries.
    */
   async bridgeDashboard(): Promise<LedgerPlatformApduTransport> {
@@ -129,11 +128,11 @@ export default class LedgerLivePlatformSDK {
   }
 
   /**
-   * @ignore Not yet implemented
+   * @alpha
    * Start the exchange process by generating a nonce on Ledger device
-   * @param {ExchangeType} exchangeType - used by the exchange transport to discern between swap/sell/fund
+   * @param exchangeType - used by the exchange transport to discern between swap/sell/fund
    *
-   * @returns {Promise<ExchangeDeviceTxId>} - A transaction ID used to complete the exchange process
+   * @returns - A transaction ID used to complete the exchange process
    */
   async startExchange({
     exchangeType,
@@ -144,20 +143,20 @@ export default class LedgerLivePlatformSDK {
   }
 
   /**
-   * @ignore Not yet implemented
+   * @alpha
    * Complete an exchange process by passing by the exchange content and its signature.
    * User will be prompted on its device to approve the exchange.
    * If the exchange is validated, the transaction is then signed and broadcasted to the network.
-   * @param {string} provider - Used to verify the signature
-   * @param {string} fromAccountId - Live identifier of the account used as a source for the tx
-   * @param {string} toAccountId - (Swap) Live identifier of the account used as a destination
-   * @param {Transaction} transaction - Transaction containing the recipient and amount
-   * @param {ExchangePayload} binaryPayload - Blueprint of the data that we'll allow signing
-   * @param {EcdsaSignature} signature - Ensures the source of the payload
-   * @param {FeesLevel} feesStrategy - Slow / Medium / Fast
-   * @param {ExchangeType} exchangeType - used by the exchange transport to discern between swap/sell/fund
+   * @param provider - Used to verify the signature
+   * @param fromAccountId - Live identifier of the account used as a source for the tx
+   * @param toAccountId - (Swap) Live identifier of the account used as a destination
+   * @param transaction - Transaction containing the recipient and amount
+   * @param binaryPayload - Blueprint of the data that we'll allow signing
+   * @param signature - Ensures the source of the payload
+   * @param feesStrategy - Slow / Medium / Fast
+   * @param exchangeType - used by the exchange transport to discern between swap/sell/fund
    *
-   * @returns {Promise<RawSignedTransaction>} - The broadcasted transaction details.
+   * @returns - The broadcasted transaction details.
    */
   async completeExchange({
     provider,
@@ -284,7 +283,7 @@ export default class LedgerLivePlatformSDK {
    * Synchronize an account with its network and return an updated view of the account
    * @param accountId - The id of the account to synchronize
    *
-   * @returns {Promise<Account>} - An updated view of the account
+   * @returns - An updated view of the account
    */
   async synchronizeAccount(_accountId: string): Promise<Account> {
     throw new Error("Function is not implemented yet");
