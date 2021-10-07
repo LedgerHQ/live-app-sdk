@@ -11,4 +11,4 @@ In this tutorial, you will create a simple Live App using the [`live-app-sdk`](h
 
 ---
 
-[Next](./1-setup.md)<code>&nbsp;</code>➡️
+[Next](./1-setup.md)&nbsp;➡️

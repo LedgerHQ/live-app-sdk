@@ -4,7 +4,7 @@
 
 The first step is to create a new project using the `live-app-sdk`. To do so, we will use the [`live-app` Create React App template](https://www.npmjs.com/package/@ledgerhq/cra-template-live-app) in order to bootstrap a React TypeScript web app initialized with the `live-app-sdk`.
 
-> 📝 <code>&nbsp;</code>For more info regarding CRA, refer to the project's documentation [here](https://create-react-app.dev/docs/getting-started).
+> 📝 &nbsp;For more info regarding CRA, refer to the project's documentation [here](https://create-react-app.dev/docs/getting-started).
 
 To do so, run the following command in your terminal:
 
@@ -33,4 +33,4 @@ This is done through a `manifest` file that we will create in the next section.
 
 ---
 
-⬅️ <code>&nbsp;</code>[Previous](./README.md) | [Next](./2-manifest.md)<code>&nbsp;</code>➡️
+⬅️ &nbsp;[Previous](./README.md) | [Next](./2-manifest.md)&nbsp;➡️

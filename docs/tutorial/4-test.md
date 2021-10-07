@@ -22,4 +22,4 @@ Once you have selected an account, you will see the associated account’s infor
 
 ---
 
-⬅️ <code>&nbsp;</code>[Previous](./3-import.md) | [Next](./conclusion.md)<code>&nbsp;</code>➡️
+⬅️ &nbsp;[Previous](./3-import.md) | [Next](./conclusion.md)&nbsp;➡️

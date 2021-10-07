@@ -26,4 +26,4 @@ Now that you have added your Live App in your local Ledger Live application, it�
 
 ---
 
-⬅️ <code>&nbsp;</code>[Previous](./2-manifest.md) | [Next](./4-test.md)<code>&nbsp;</code>➡️
+⬅️ &nbsp;[Previous](./2-manifest.md) | [Next](./4-test.md)&nbsp;➡️

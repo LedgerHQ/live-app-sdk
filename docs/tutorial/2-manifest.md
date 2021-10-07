@@ -46,4 +46,4 @@ Now that we have our Live App manifest, we need to add it into Ledger Live, this
 
 ---
 
-⬅️ <code>&nbsp;</code>[Previous](./1-setup.md) | [Next](./3-import.md)<code>&nbsp;</code>➡️
+⬅️ &nbsp;[Previous](./1-setup.md) | [Next](./3-import.md)&nbsp;➡️

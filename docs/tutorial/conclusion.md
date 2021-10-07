@@ -10,4 +10,4 @@ Finally, you have enabled and interacted with the available Developer tools to i
 
 ---
 
-⬅️ <code>&nbsp;</code>[Previous](./4-test.md)
+⬅️ &nbsp;[Previous](./4-test.md)
