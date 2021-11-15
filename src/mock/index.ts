@@ -41,6 +41,10 @@ export default class LedgerLiveSDKMock
     this.connected = false;
   }
 
+  static isInLiveContext(): boolean {
+    return true;
+  }
+
   /** Legder Live Methods */
 
   async requestAccount(): Promise<Account> {
