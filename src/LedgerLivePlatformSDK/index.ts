@@ -105,6 +105,17 @@ export default class LedgerLivePlatformSDK {
     this.logger.log("disconnected", this.transport);
   }
 
+  // FIXME: add unit test
+  /**
+   * Indicates if the application is currently running inside of the Ledger Live context or not
+   *
+   * @returns `true` if the app is being run in the Ledger Live context, `false` otherwise
+   */
+  static isInLiveContext(): boolean {
+    // @ts-ignore
+    return !!window.ElectronWebview || !!window.ReactNativeWebView;
+  }
+
   /**
    * @ignore Not yet implemented
    * Open a bridge to an application to exchange APDUs with a device application
