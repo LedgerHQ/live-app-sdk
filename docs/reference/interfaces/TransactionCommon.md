@@ -46,7 +46,7 @@ For example in BTC, a tx with an 'amount' field of 1 will correspond to a tx cor
 
 #### Defined in
 
-[types.ts:73](https://github.com/LedgerHQ/live-app-sdk/blob/d6e8ab1/src/types.ts#L73)
+[types.ts:73](https://github.com/LedgerHQ/live-app-sdk/blob/dc89379/src/types.ts#L73)
 
 ___
 
@@ -58,4 +58,4 @@ The address of the transaction's recipient
 
 #### Defined in
 
-[types.ts:77](https://github.com/LedgerHQ/live-app-sdk/blob/d6e8ab1/src/types.ts#L77)
+[types.ts:77](https://github.com/LedgerHQ/live-app-sdk/blob/dc89379/src/types.ts#L77)
