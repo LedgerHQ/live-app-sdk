@@ -193,6 +193,20 @@ export default class LedgerLivePlatformSDK {
     });
   }
 
+  async signMessage({
+    accountId,
+    message,
+  }: {
+    accountId: string;
+    message: string;
+  }): Promise<string> {
+    return this._request("message.sign", {
+      accountId,
+      message,
+      params: {},
+    });
+  }
+
   /**
    * Let user sign a transaction through Ledger Live
    * @param accountId - LL id of the account
