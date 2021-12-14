@@ -29,6 +29,7 @@ export default class LedgerLiveSDKMock
       | "listApps"
       | "synchronizeAccount"
       | "getLastConnectedDeviceInfo"
+      | "signMessage"
     >
 {
   connected = false;
