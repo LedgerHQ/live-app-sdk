@@ -105,6 +105,16 @@ export default class LedgerLiveSDKMock
     });
   }
 
+  async signPersonalMessage(
+    _accountId: string,
+    _message: string
+  ): Promise<string> {
+    if (!this.connected) {
+      throw new Error("Ledger Live API not connected");
+    }
+    return Promise.resolve(generateRandomTxID(109));
+  }
+
   async broadcastSignedTransaction(
     _accountId: string,
     _signedTransaction: RawSignedTransaction

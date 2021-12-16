@@ -219,6 +219,32 @@ export default class LedgerLivePlatformSDK {
   }
 
   /**
+   * Let user sign a personal message through Ledger Live
+   * according to the "personal_sign" spec
+   * @param accountId - LL id of the account
+   * @param message - The message to sign
+   * @param params - Parameters for the sign modal
+   *
+   * @returns The raw signed message
+   */
+  async signPersonalMessage(
+    accountId: string,
+    message: string,
+    params?: {
+      /**
+       * The name of the Ledger Nano app to use for the signing process
+       */
+      useApp: string;
+    }
+  ): Promise<string> {
+    return this._request<string>("personal.sign", {
+      accountId,
+      message,
+      params: params || {},
+    });
+  }
+
+  /**
    * Broadcast a previously signed transaction through Ledger Live
    * @param accountId - LL id of the account
    * @param signedTransaction - A [[RawSignedTransaction]] returned by LL when signing with [[signTransaction]]
