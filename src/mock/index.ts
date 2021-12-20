@@ -29,7 +29,6 @@ export default class LedgerLiveSDKMock
       | "listApps"
       | "synchronizeAccount"
       | "getLastConnectedDeviceInfo"
-      | "signMessage"
     >
 {
   connected = false;
@@ -90,6 +89,16 @@ export default class LedgerLiveSDKMock
       throw new Error("Account not found");
     }
     return Promise.resolve(selectedAccount.address);
+  }
+
+  async signMessage(_params: {
+    accountId: string;
+    message: string;
+  }): Promise<string> {
+    if (!this.connected) {
+      throw new Error("Ledger Live API not connected");
+    }
+    return Promise.resolve(generateRandomTxID(109));
   }
 
   async signTransaction(
