@@ -193,6 +193,13 @@ export default class LedgerLivePlatformSDK {
     });
   }
 
+  /**
+   * Let the user sign a message through Ledger Live
+   * @param accountId - Ledger Live id of the account
+   * @param message - The message to sign
+   *
+   * @returns The raw signed message
+   */
   async signMessage({
     accountId,
     message,
