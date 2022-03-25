@@ -276,7 +276,7 @@ export default class LedgerLivePlatformSDK {
    *
    * @param accountId - LL id of the account
    *
-   * @returns The verified address
+   * @returns The verified address or an error message if the verification doesn't succeed
    */
   async receive(accountId: string): Promise<string> {
     return this._request("account.receive", { accountId });
