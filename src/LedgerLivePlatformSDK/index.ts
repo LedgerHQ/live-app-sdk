@@ -253,7 +253,7 @@ export default class LedgerLivePlatformSDK {
   /**
    * Let user choose an account in a Ledger Live, providing filters for choosing currency or allowing add account.
    *
-   * @param params - Parameters for the request modal
+   * @param params - Parameters for the request modal, currencies is an array of currencies (not families).
    *
    * @returns The account selected by the user
    */
