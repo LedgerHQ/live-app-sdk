@@ -36,6 +36,17 @@ const makeMessageEvent = (
   });
 };
 
+/**
+ * JSON-RPC Event response object shape is available here:
+ * @see https://www.jsonrpc.org/specification#response_object
+ */
+const makeJSONRPCMessageEvent = (message: unknown): MessageEventMock =>
+  makeMessageEvent({
+    id: 1, // This assumes that the event request object id was also 1
+    jsonrpc: "2.0",
+    result: message,
+  });
+
 describe("LedgerLivePlatformSDK/index.ts", () => {
   describe("constructor", () => {
     it("should construct with default logger", () => {
@@ -422,6 +433,30 @@ describe("LedgerLivePlatformSDK/index.ts", () => {
           `{"jsonrpc":"2.0","method":"transaction.sign","params":{"accountId":"${accountId}","transaction":${JSON.stringify(
             transaction
           )},"params":{}},"id":1}`
+        );
+      });
+    });
+
+    describe("signMessage", () => {
+      it("should succeed to sign a message", async () => {
+        SDK.connect();
+
+        const accountId = "accountId";
+        const message = "Test message";
+
+        const signedMessage = "Message signed";
+
+        // @ts-ignore
+        const spy = chai.spy.on(window.top, "postMessage", () => {
+          const messageEvent = makeJSONRPCMessageEvent(signedMessage);
+          window.MOCK_emit(messageEvent);
+        }) as ChaiSpies.Spy;
+
+        const res = await SDK.signMessage(accountId, message);
+
+        expect(res).to.deep.eq(signedMessage);
+        expect(spy).to.have.been.called.with(
+          `{"jsonrpc":"2.0","method":"message.sign","params":{"accountId":"${accountId}","message":"${message}"},"id":1}`
         );
       });
     });
