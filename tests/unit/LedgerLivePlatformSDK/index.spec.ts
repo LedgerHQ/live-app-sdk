@@ -46,6 +46,17 @@ const makeJSONRPCMessageEvent = (message: unknown): MessageEventMock =>
     result: message,
   });
 
+type SpyOnPostMessage = (message: unknown) => ChaiSpies.Spy;
+const createSpyPostMessageOnWindow =
+  (window: WindowMock) =>
+  (message: unknown): ChaiSpies.Spy => {
+    // @ts-ignore
+    return chai.spy.on(window.top, "postMessage", () => {
+      const messageEvent = makeJSONRPCMessageEvent(message);
+      window.MOCK_emit(messageEvent);
+    }) as ChaiSpies.Spy;
+  };
+
 describe("LedgerLivePlatformSDK/index.ts", () => {
   describe("constructor", () => {
     it("should construct with default logger", () => {
@@ -103,12 +114,15 @@ describe("LedgerLivePlatformSDK/index.ts", () => {
   describe("JSON-RPC Requests", () => {
     let window: WindowMock;
     let SDK: LedgerLivePlatformSDK;
+    let createSpyOnPostMessage: SpyOnPostMessage;
 
     beforeEach(() => {
       window = new WindowMock({ top: true });
       // @ts-ignore
       const transport = new WindowMessageTransport(window, logger);
       SDK = new LedgerLivePlatformSDK(transport, logger);
+
+      createSpyOnPostMessage = createSpyPostMessageOnWindow(window);
     });
 
     afterEach(() => {
@@ -143,10 +157,6 @@ describe("LedgerLivePlatformSDK/index.ts", () => {
       });
 
       it("should throw if JSON-RPC throws", async () => {
-        const window = new WindowMock();
-        // @ts-ignore
-        const transport = new WindowMessageTransport(window, logger);
-        const SDK = new LedgerLivePlatformSDK(transport, logger);
         SDK.connect();
 
         // @ts-ignore
@@ -176,19 +186,7 @@ describe("LedgerLivePlatformSDK/index.ts", () => {
           expirationDate: null,
         };
 
-        /**
-         * JSON-RPC Event response object shape is available here:
-         * @see https://www.jsonrpc.org/specification#response_object
-         */
-        const e = makeMessageEvent({
-          id: 1, // This assumes that the event request object id was also 1
-          jsonrpc: "2.0",
-          result: optimisticOperationHash,
-        });
-        // @ts-ignore
-        const spy = chai.spy.on(window.top, "postMessage", () => {
-          window.MOCK_emit(e);
-        }) as ChaiSpies.Spy;
+        const spy = createSpyOnPostMessage(optimisticOperationHash);
 
         const res = await SDK.broadcastSignedTransaction(
           accountId,
@@ -220,19 +218,7 @@ describe("LedgerLivePlatformSDK/index.ts", () => {
           },
         ];
 
-        /**
-         * JSON-RPC Event response object shape is available here:
-         * @see https://www.jsonrpc.org/specification#response_object
-         */
-        const e = makeMessageEvent({
-          id: 1, // This assumes that the event request object id was also 1
-          jsonrpc: "2.0",
-          result: dummyAccountList,
-        });
-        // @ts-ignore
-        const spy = chai.spy.on(window.top, "postMessage", () => {
-          window.MOCK_emit(e);
-        }) as ChaiSpies.Spy;
+        const spy = createSpyOnPostMessage(dummyAccountList);
 
         const res = await SDK.listAccounts();
         expect(res).to.deep.eq(dummyAccountList);
@@ -264,19 +250,7 @@ describe("LedgerLivePlatformSDK/index.ts", () => {
           },
         ];
 
-        /**
-         * JSON-RPC Event response object shape is available here:
-         * @see https://www.jsonrpc.org/specification#response_object
-         */
-        const e = makeMessageEvent({
-          id: 1, // This assumes that the event request object id was also 1
-          jsonrpc: "2.0",
-          result: dummyCurrencyList,
-        });
-        // @ts-ignore
-        const spy = chai.spy.on(window.top, "postMessage", () => {
-          window.MOCK_emit(e);
-        }) as ChaiSpies.Spy;
+        const spy = createSpyOnPostMessage(dummyCurrencyList);
 
         const res = await SDK.listCurrencies();
         expect(res).to.deep.eq(dummyCurrencyList);
@@ -291,19 +265,8 @@ describe("LedgerLivePlatformSDK/index.ts", () => {
         SDK.connect();
 
         const freshAddress: Account["address"] = "0xL3dG3r";
-        /**
-         * JSON-RPC Event response object shape is available here:
-         * @see https://www.jsonrpc.org/specification#response_object
-         */
-        const e = makeMessageEvent({
-          id: 1, // This assumes that the event request object id was also 1
-          jsonrpc: "2.0",
-          result: freshAddress,
-        });
-        // @ts-ignore
-        const spy = chai.spy.on(window.top, "postMessage", () => {
-          window.MOCK_emit(e);
-        }) as ChaiSpies.Spy;
+
+        const spy = createSpyOnPostMessage(freshAddress);
 
         const res = await SDK.receive("accountId");
         expect(res).to.be.eq(freshAddress);
@@ -328,19 +291,7 @@ describe("LedgerLivePlatformSDK/index.ts", () => {
       it("should succeed to request an account with params", async () => {
         SDK.connect();
 
-        /**
-         * JSON-RPC Event response object shape is available here:
-         * @see https://www.jsonrpc.org/specification#response_object
-         */
-        const e = makeMessageEvent({
-          id: 1, // This assumes that the event request object id was also 1
-          jsonrpc: "2.0",
-          result: rawAccount,
-        });
-        // @ts-ignore
-        const spy = chai.spy.on(window.top, "postMessage", () => {
-          window.MOCK_emit(e);
-        }) as ChaiSpies.Spy;
+        const spy = createSpyOnPostMessage(rawAccount);
 
         const res = await SDK.requestAccount({
           currencies: ["bitcoin"],
@@ -364,19 +315,8 @@ describe("LedgerLivePlatformSDK/index.ts", () => {
       it("should succeed to request an account without params", async () => {
         SDK.connect();
 
-        /**
-         * JSON-RPC Event response object shape is available here:
-         * @see https://www.jsonrpc.org/specification#response_object
-         */
-        const e = makeMessageEvent({
-          id: 1, // This assumes that the event request object id was also 1
-          jsonrpc: "2.0",
-          result: rawAccount,
-        });
         // @ts-ignore
-        const spy = chai.spy.on(window.top, "postMessage", () => {
-          window.MOCK_emit(e);
-        }) as ChaiSpies.Spy;
+        const spy = createSpyOnPostMessage(rawAccount);
 
         const res = await SDK.requestAccount();
         expect(res).to.deep.eq({
@@ -411,19 +351,7 @@ describe("LedgerLivePlatformSDK/index.ts", () => {
           expirationDate: date.toISOString(),
         };
 
-        /**
-         * JSON-RPC Event response object shape is available here:
-         * @see https://www.jsonrpc.org/specification#response_object
-         */
-        const e = makeMessageEvent({
-          id: 1, // This assumes that the event request object id was also 1
-          jsonrpc: "2.0",
-          result: rawSignedTransaction,
-        });
-        // @ts-ignore
-        const spy = chai.spy.on(window.top, "postMessage", () => {
-          window.MOCK_emit(e);
-        }) as ChaiSpies.Spy;
+        const spy = createSpyOnPostMessage(rawSignedTransaction);
 
         const res = await SDK.signTransaction(accountId, transaction);
         expect(res).to.deep.eq(rawSignedTransaction);
@@ -444,11 +372,7 @@ describe("LedgerLivePlatformSDK/index.ts", () => {
 
         const signedMessage = "Message signed";
 
-        // @ts-ignore
-        const spy = chai.spy.on(window.top, "postMessage", () => {
-          const messageEvent = makeJSONRPCMessageEvent(signedMessage);
-          window.MOCK_emit(messageEvent);
-        }) as ChaiSpies.Spy;
+        const spy = createSpyOnPostMessage(signedMessage);
 
         const res = await SDK.signMessage(accountId, message);
 
@@ -467,19 +391,7 @@ describe("LedgerLivePlatformSDK/index.ts", () => {
 
         const nonce: ExchangeDeviceTxId = "nonce";
 
-        /**
-         * JSON-RPC Event response object shape is available here:
-         * @see https://www.jsonrpc.org/specification#response_object
-         */
-        const e = makeMessageEvent({
-          id: 1, // This assumes that the event request object id was also 1
-          jsonrpc: "2.0",
-          result: nonce,
-        });
-        // @ts-ignore
-        const spy = chai.spy.on(window.top, "postMessage", () => {
-          window.MOCK_emit(e);
-        }) as ChaiSpies.Spy;
+        const spy = createSpyOnPostMessage(nonce);
 
         const res = await SDK.startExchange({ exchangeType });
 
@@ -521,19 +433,7 @@ describe("LedgerLivePlatformSDK/index.ts", () => {
           expirationDate: date.toISOString(),
         };
 
-        /**
-         * JSON-RPC Event response object shape is available here:
-         * @see https://www.jsonrpc.org/specification#response_object
-         */
-        const e = makeMessageEvent({
-          id: 1, // This assumes that the event request object id was also 1
-          jsonrpc: "2.0",
-          result: rawSignedTransaction,
-        });
-        // @ts-ignore
-        const spy = chai.spy.on(window.top, "postMessage", () => {
-          window.MOCK_emit(e);
-        }) as ChaiSpies.Spy;
+        const spy = createSpyOnPostMessage(rawSignedTransaction);
 
         const res = await SDK.completeExchange(completeExchangeParams);
 
