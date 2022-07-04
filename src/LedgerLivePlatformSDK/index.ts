@@ -212,8 +212,21 @@ export default class LedgerLivePlatformSDK {
    *
    * @returns Message signed
    */
-  async signMessage(accountId: string, message: string): Promise<string> {
-    return this._request("message.sign", { accountId, message });
+  async signMessage(
+    accountId: string,
+    message: string,
+    mock?: {
+      /**
+       * The mocked signature to be returned on success
+       */
+      successResponse: string;
+    }
+  ): Promise<string> {
+    return this._request("message.sign", {
+      accountId,
+      message,
+      mock: this.isMocked ? mock : undefined,
+    });
   }
 
   /**
