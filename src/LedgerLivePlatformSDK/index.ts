@@ -3,18 +3,14 @@
  */
 
 import {
-  JSONRPCServerAndClient,
+  JSONRPCClient,
   JSONRPCParams,
   JSONRPCServer,
-  JSONRPCClient,
+  JSONRPCServerAndClient,
 } from "json-rpc-2.0";
-
 import Logger from "../logger";
 import { RawAccount, RawSignedTransaction } from "../rawTypes";
 import { deserializeAccount, serializeTransaction } from "../serializers";
-
-import { ExchangeType } from "../types";
-
 import type {
   Account,
   ApplicationDetails,
@@ -27,7 +23,7 @@ import type {
   Transaction,
   Transport,
 } from "../types";
-
+import { ExchangeType } from "../types";
 import LedgerPlatformApduTransport from "./LedgerPlatformApduTransport";
 
 const defaultLogger = new Logger("LL-PlatformSDK");
@@ -51,9 +47,21 @@ export default class LedgerLivePlatformSDK {
    */
   private serverAndClient?: JSONRPCServerAndClient;
 
-  constructor(transport: Transport, logger: Logger = defaultLogger) {
+  /**
+   * @ignore
+   * @internal
+   * Specify if the SDK should use mock response or real response
+   */
+  private isMocked = false;
+
+  constructor(
+    transport: Transport,
+    logger: Logger = defaultLogger,
+    isMocked = false
+  ) {
     this.transport = transport;
     this.logger = logger;
+    this.isMocked = isMocked;
   }
 
   /**
@@ -202,6 +210,7 @@ export default class LedgerLivePlatformSDK {
    * @param accountId - Ledger Live id of the account
    * @param transaction - The transaction object in the currency family-specific format
    * @param params - Parameters for the sign modal
+   * @param mock - Parameters for the fundction mock
    *
    * @returns The raw signed transaction to broadcast
    */
@@ -213,40 +222,44 @@ export default class LedgerLivePlatformSDK {
        * The name of the Ledger Nano app to use for the signing process
        */
       useApp: string;
+    },
+    mock?: {
+      /**
+       * The mocked raw signed transaction to be returned on success
+       */
+      successResponse: RawSignedTransaction;
     }
   ): Promise<RawSignedTransaction> {
     return this._request<RawSignedTransaction>("transaction.sign", {
       accountId,
       transaction: serializeTransaction(transaction),
       params: params || {},
+      mock: this.isMocked ? mock : undefined,
     });
-  }
-
-  /**
-   * Let the user sign the provided message through Ledger Live
-   * @param accountId - Ledger Live id of the account (Ethereum only)
-   * @param message - Message the user should sign
-   *
-   * @returns Message signed
-   */
-  async signMessage(accountId: string, message: string): Promise<string> {
-    return this._request("message.sign", { accountId, message });
   }
 
   /**
    * Broadcast a previously signed transaction through Ledger Live
    * @param accountId - Ledger Live id of the account
    * @param signedTransaction - A [[RawSignedTransaction]] returned by Ledger Live when signing with [[signTransaction]]
+   * @param mock - Parameters for the fundction mock
    *
    * @returns The hash of the transaction
    */
   async broadcastSignedTransaction(
     accountId: string,
-    signedTransaction: RawSignedTransaction
+    signedTransaction: RawSignedTransaction,
+    mock?: {
+      /**
+       * The mocked transaction hash to be returned on success
+       */
+      transactionHash: string;
+    }
   ): Promise<string> {
     return this._request("transaction.broadcast", {
       accountId,
       signedTransaction,
+      mock: this.isMocked ? mock : undefined,
     });
   }
 
