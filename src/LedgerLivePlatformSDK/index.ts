@@ -206,6 +206,17 @@ export default class LedgerLivePlatformSDK {
   }
 
   /**
+   * Let the user sign the provided message through Ledger Live
+   * @param accountId - Ledger Live id of the account (Ethereum only)
+   * @param message - Message the user should sign
+   *
+   * @returns Message signed
+   */
+  async signMessage(accountId: string, message: string): Promise<string> {
+    return this._request("message.sign", { accountId, message });
+  }
+
+  /**
    * Let the user sign a transaction through Ledger Live
    * @param accountId - Ledger Live id of the account
    * @param transaction - The transaction object in the currency family-specific format
