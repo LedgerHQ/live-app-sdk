@@ -105,6 +105,10 @@ export default class LedgerLiveSDKMock
     });
   }
 
+  async signMessage(_accountId: string, _message: string): Promise<string> {
+    return Promise.resolve("message signed!");
+  }
+
   async broadcastSignedTransaction(
     _accountId: string,
     _signedTransaction: RawSignedTransaction
