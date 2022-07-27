@@ -370,7 +370,7 @@ describe("LedgerLivePlatformSDK/index.ts", () => {
         SDK.connect();
 
         const accountId = "accountId";
-        const message = "Test message";
+        const message = Buffer.from("Test message");
 
         const signedMessage = "Message signed";
 
@@ -378,9 +378,10 @@ describe("LedgerLivePlatformSDK/index.ts", () => {
 
         const res = await SDK.signMessage(accountId, message);
 
+        const expectedMessage = message.toString("hex");
         expect(res).to.deep.eq(signedMessage);
         expect(spy).to.have.been.called.with(
-          `{"jsonrpc":"2.0","method":"message.sign","params":{"accountId":"${accountId}","message":"${message}"},"id":1}`
+          `{"jsonrpc":"2.0","method":"message.sign","params":{"accountId":"${accountId}","message":"${expectedMessage}"},"id":1}`
         );
       });
     });

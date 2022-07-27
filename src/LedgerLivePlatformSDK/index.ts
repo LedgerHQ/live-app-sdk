@@ -229,8 +229,11 @@ export default class LedgerLivePlatformSDK {
    *
    * @returns Message signed
    */
-  async signMessage(accountId: string, message: string): Promise<string> {
-    return this._request("message.sign", { accountId, message });
+  async signMessage(accountId: string, message: Buffer): Promise<string> {
+    return this._request("message.sign", {
+      accountId,
+      message: message.toString("hex"),
+    });
   }
 
   /**
