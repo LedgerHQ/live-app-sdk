@@ -60,6 +60,25 @@ jobs:
         run: npx codecov
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+  test-doc:
+    name: "Test Documentation"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          repository: ${{github.event.pull_request.head.repo.full_name}}
+      - uses: actions/setup-node@main
+        with:
+          node-version: 14.x
+      - uses: actions/cache@v3
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: run doc
+        run: yarn doc
+      - name: check if diff
+        run: git diff --exit-code || exit 1
   build:
     needs: setup
     runs-on: ubuntu-latest
