@@ -20,7 +20,7 @@
     "doc:html": "typedoc --gitRevision main --out docs/html --plugin typedoc-plugin-rename-defaults --plugin typedoc-plugin-param-names src/index.ts"
   },
   "dependencies": {
-    "bignumber.js": "^9.0.2",
+    "bignumber.js": "^9.1.0",
     "json-rpc-2.0": "^1.1.0"
   },
   "devDependencies": {
