@@ -245,7 +245,7 @@ ___
 ▸ **signMessage**(`accountId`, `message`): `Promise`<`string`\>
 
 Let the user sign the provided message through Ledger Live.
-In Ethereum context, this is a [EIP-191 message](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-191.md) or a [EIP-712 message](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-712.md)
+In Ethereum context, this is an [EIP-191 message](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-191.md) or an [EIP-712 message](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-712.md)
 
 #### Parameters
 
