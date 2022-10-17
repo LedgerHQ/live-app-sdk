@@ -29,6 +29,7 @@ import type {
 } from "../types";
 
 import LedgerPlatformApduTransport from "./LedgerPlatformApduTransport";
+import storageFactory, { StorageSDK } from "./storage";
 
 const defaultLogger = new Logger("LL-PlatformSDK");
 
@@ -51,9 +52,15 @@ export default class LedgerLivePlatformSDK {
    */
   private serverAndClient?: JSONRPCServerAndClient;
 
+  readonly storage: StorageSDK;
+
   constructor(transport: Transport, logger: Logger = defaultLogger) {
     this.transport = transport;
     this.logger = logger;
+    this.storage = storageFactory({
+      saveToStorage: this._saveToStorage.bind(this),
+      getFromStorage: this._getFromStorage.bind(this),
+    });
   }
 
   /**
@@ -365,5 +372,26 @@ export default class LedgerLivePlatformSDK {
    */
   async listApps(): Promise<ApplicationDetails[]> {
     throw new Error("Function is not implemented yet");
+  }
+
+  /**
+   * PRIVATE METHOD.
+   * Save `value` into the storage provided by the Wallet Server.
+   * @param key - key to find later the value
+   * @param value - value to save
+   * @returns Nothing
+   */
+  async _saveToStorage(key: string, value: string): Promise<void> {
+    return this._request("storage.set", { key, value });
+  }
+
+  /**
+   * PRIVATE METHOD.
+   * Retrieve the value associated with the `key` from the storage provided by the Wallet Server.
+   * @param key - key associated to searched value
+   * @returns The value associated to the `key`
+   */
+  async _getFromStorage(key: string): Promise<string> {
+    return this._request("storage.get", { key });
   }
 }

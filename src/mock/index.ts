@@ -5,6 +5,7 @@ import type { Account, Currency } from "../types";
 import { deserializeAccount } from "../serializers";
 import LedgerLivePlatformSDK from "../LedgerLivePlatformSDK";
 import { RawSignedTransaction } from "../rawTypes";
+import { StorageSDK } from "../LedgerLivePlatformSDK/storage";
 
 const { rawAccounts, rawCurrencies } = data;
 
@@ -29,6 +30,8 @@ export default class LedgerLiveSDKMock
       | "listApps"
       | "synchronizeAccount"
       | "getLastConnectedDeviceInfo"
+      | "_saveToStorage"
+      | "_getFromStorage"
     >
 {
   connected = false;
@@ -40,6 +43,15 @@ export default class LedgerLiveSDKMock
   disconnect(): void {
     this.connected = false;
   }
+
+  readonly storage: StorageSDK = {
+    save: async (_key: string, _value: string): Promise<void> => {
+      await Promise.resolve("");
+    },
+    get: async (_key: string): Promise<string> => {
+      return Promise.resolve("");
+    },
+  };
 
   /** Legder Live Methods */
 
