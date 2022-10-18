@@ -6,6 +6,7 @@ export interface StorageSDK {
    * Store the value with the associated key.
    * @param key - Key to find later the value
    * @param value - Value to save
+   * @throws Will throw an error if the value has not been saved.
    */
   save(key: string, value: string): Promise<void>;
   /**
