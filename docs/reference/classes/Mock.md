@@ -4,7 +4,7 @@
 
 ## Implements
 
-- `MockOf`<[`LedgerLivePlatformSDK`](LedgerLivePlatformSDK.md), ``"bridgeApp"`` \| ``"bridgeDashboard"`` \| ``"completeExchange"`` \| ``"startExchange"`` \| ``"listApps"`` \| ``"synchronizeAccount"`` \| ``"getLastConnectedDeviceInfo"``\>
+- `MockOf`<[`LedgerLivePlatformSDK`](LedgerLivePlatformSDK.md), ``"bridgeApp"`` \| ``"bridgeDashboard"`` \| ``"completeExchange"`` \| ``"startExchange"`` \| ``"listApps"`` \| ``"synchronizeAccount"`` \| ``"getLastConnectedDeviceInfo"`` \| ``"_saveToStorage"`` \| ``"_getFromStorage"``\>
 
 ## Table of contents
 
@@ -15,6 +15,7 @@
 ### Properties
 
 - [connected](Mock.md#connected)
+- [storage](Mock.md#storage)
 
 ### Methods
 
@@ -43,7 +44,21 @@
 
 #### Defined in
 
-[mock/index.ts:34](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/mock/index.ts#L34)
+[mock/index.ts:37](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/mock/index.ts#L37)
+
+___
+
+### storage
+
+• `Readonly` **storage**: `StorageSDK`
+
+#### Implementation of
+
+MockOf.storage
+
+#### Defined in
+
+[mock/index.ts:47](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/mock/index.ts#L47)
 
 ## Methods
 
@@ -68,7 +83,7 @@ MockOf.broadcastSignedTransaction
 
 #### Defined in
 
-[mock/index.ts:113](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/mock/index.ts#L113)
+[mock/index.ts:125](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/mock/index.ts#L125)
 
 ___
 
@@ -86,7 +101,7 @@ MockOf.connect
 
 #### Defined in
 
-[mock/index.ts:36](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/mock/index.ts#L36)
+[mock/index.ts:39](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/mock/index.ts#L39)
 
 ___
 
@@ -104,7 +119,7 @@ MockOf.disconnect
 
 #### Defined in
 
-[mock/index.ts:40](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/mock/index.ts#L40)
+[mock/index.ts:43](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/mock/index.ts#L43)
 
 ___
 
@@ -124,7 +139,7 @@ ___
 
 #### Defined in
 
-[mock/index.ts:65](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/mock/index.ts#L65)
+[mock/index.ts:77](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/mock/index.ts#L77)
 
 ___
 
@@ -142,7 +157,7 @@ MockOf.listAccounts
 
 #### Defined in
 
-[mock/index.ts:58](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/mock/index.ts#L58)
+[mock/index.ts:70](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/mock/index.ts#L70)
 
 ___
 
@@ -160,7 +175,7 @@ MockOf.listCurrencies
 
 #### Defined in
 
-[mock/index.ts:50](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/mock/index.ts#L50)
+[mock/index.ts:62](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/mock/index.ts#L62)
 
 ___
 
@@ -184,7 +199,7 @@ MockOf.receive
 
 #### Defined in
 
-[mock/index.ts:79](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/mock/index.ts#L79)
+[mock/index.ts:91](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/mock/index.ts#L91)
 
 ___
 
@@ -204,7 +219,7 @@ MockOf.requestAccount
 
 #### Defined in
 
-[mock/index.ts:46](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/mock/index.ts#L46)
+[mock/index.ts:58](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/mock/index.ts#L58)
 
 ___
 
@@ -229,7 +244,7 @@ MockOf.signMessage
 
 #### Defined in
 
-[mock/index.ts:109](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/mock/index.ts#L109)
+[mock/index.ts:121](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/mock/index.ts#L121)
 
 ___
 
@@ -254,4 +269,4 @@ MockOf.signTransaction
 
 #### Defined in
 
-[mock/index.ts:94](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/mock/index.ts#L94)
+[mock/index.ts:106](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/mock/index.ts#L106)

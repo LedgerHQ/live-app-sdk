@@ -8,8 +8,14 @@
 
 - [constructor](LedgerLivePlatformSDK.md#constructor)
 
+### Properties
+
+- [storage](LedgerLivePlatformSDK.md#storage)
+
 ### Methods
 
+- [\_getFromStorage](LedgerLivePlatformSDK.md#_getfromstorage)
+- [\_saveToStorage](LedgerLivePlatformSDK.md#_savetostorage)
 - [broadcastSignedTransaction](LedgerLivePlatformSDK.md#broadcastsignedtransaction)
 - [completeExchange](LedgerLivePlatformSDK.md#completeexchange)
 - [connect](LedgerLivePlatformSDK.md#connect)
@@ -37,9 +43,70 @@
 
 #### Defined in
 
-[LedgerLivePlatformSDK/index.ts:54](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/LedgerLivePlatformSDK/index.ts#L54)
+[LedgerLivePlatformSDK/index.ts:57](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/LedgerLivePlatformSDK/index.ts#L57)
+
+## Properties
+
+### storage
+
+• `Readonly` **storage**: `StorageSDK`
+
+#### Defined in
+
+[LedgerLivePlatformSDK/index.ts:55](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/LedgerLivePlatformSDK/index.ts#L55)
 
 ## Methods
+
+### \_getFromStorage
+
+▸ **_getFromStorage**(`key`): `Promise`<`string`\>
+
+PRIVATE METHOD.
+Retrieve the value associated with the `key` from the storage provided by the Wallet Server.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `key` | `string` | key associated to searched value |
+
+#### Returns
+
+`Promise`<`string`\>
+
+The value associated to the `key`
+
+#### Defined in
+
+[LedgerLivePlatformSDK/index.ts:394](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/LedgerLivePlatformSDK/index.ts#L394)
+
+___
+
+### \_saveToStorage
+
+▸ **_saveToStorage**(`key`, `value`): `Promise`<`void`\>
+
+PRIVATE METHOD.
+Save `value` into the storage provided by the Wallet Server.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `key` | `string` | key to find later the value |
+| `value` | `string` | value to save |
+
+#### Returns
+
+`Promise`<`void`\>
+
+Nothing
+
+#### Defined in
+
+[LedgerLivePlatformSDK/index.ts:384](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/LedgerLivePlatformSDK/index.ts#L384)
+
+___
 
 ### broadcastSignedTransaction
 
@@ -62,7 +129,7 @@ The hash of the transaction
 
 #### Defined in
 
-[LedgerLivePlatformSDK/index.ts:247](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/LedgerLivePlatformSDK/index.ts#L247)
+[LedgerLivePlatformSDK/index.ts:254](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/LedgerLivePlatformSDK/index.ts#L254)
 
 ___
 
@@ -97,7 +164,7 @@ If the exchange is validated, the transaction is then signed and broadcasted to 
 
 #### Defined in
 
-[LedgerLivePlatformSDK/index.ts:165](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/LedgerLivePlatformSDK/index.ts#L165)
+[LedgerLivePlatformSDK/index.ts:172](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/LedgerLivePlatformSDK/index.ts#L172)
 
 ___
 
@@ -116,7 +183,7 @@ Establish the connection with Ledger Live through the [[transport]] instance pro
 
 #### Defined in
 
-[LedgerLivePlatformSDK/index.ts:90](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/LedgerLivePlatformSDK/index.ts#L90)
+[LedgerLivePlatformSDK/index.ts:97](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/LedgerLivePlatformSDK/index.ts#L97)
 
 ___
 
@@ -132,7 +199,7 @@ Disconnect the SDK.
 
 #### Defined in
 
-[LedgerLivePlatformSDK/index.ts:106](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/LedgerLivePlatformSDK/index.ts#L106)
+[LedgerLivePlatformSDK/index.ts:113](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/LedgerLivePlatformSDK/index.ts#L113)
 
 ___
 
@@ -157,7 +224,7 @@ The list of accounts added by the current user on Ledger Live
 
 #### Defined in
 
-[LedgerLivePlatformSDK/index.ts:262](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/LedgerLivePlatformSDK/index.ts#L262)
+[LedgerLivePlatformSDK/index.ts:269](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/LedgerLivePlatformSDK/index.ts#L269)
 
 ___
 
@@ -185,7 +252,7 @@ The list of corresponding cryptocurrencies
 
 #### Defined in
 
-[LedgerLivePlatformSDK/index.ts:337](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/LedgerLivePlatformSDK/index.ts#L337)
+[LedgerLivePlatformSDK/index.ts:344](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/LedgerLivePlatformSDK/index.ts#L344)
 
 ___
 
@@ -209,7 +276,7 @@ The verified address or an error message if the verification doesn't succeed
 
 #### Defined in
 
-[LedgerLivePlatformSDK/index.ts:313](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/LedgerLivePlatformSDK/index.ts#L313)
+[LedgerLivePlatformSDK/index.ts:320](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/LedgerLivePlatformSDK/index.ts#L320)
 
 ___
 
@@ -236,7 +303,7 @@ The account selected by the user
 
 #### Defined in
 
-[LedgerLivePlatformSDK/index.ts:282](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/LedgerLivePlatformSDK/index.ts#L282)
+[LedgerLivePlatformSDK/index.ts:289](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/LedgerLivePlatformSDK/index.ts#L289)
 
 ___
 
@@ -262,7 +329,7 @@ Message signed
 
 #### Defined in
 
-[LedgerLivePlatformSDK/index.ts:233](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/LedgerLivePlatformSDK/index.ts#L233)
+[LedgerLivePlatformSDK/index.ts:240](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/LedgerLivePlatformSDK/index.ts#L240)
 
 ___
 
@@ -289,7 +356,7 @@ The raw signed transaction to broadcast
 
 #### Defined in
 
-[LedgerLivePlatformSDK/index.ts:208](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/LedgerLivePlatformSDK/index.ts#L208)
+[LedgerLivePlatformSDK/index.ts:215](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/LedgerLivePlatformSDK/index.ts#L215)
 
 ___
 
@@ -315,4 +382,4 @@ Start the exchange process by generating a nonce on Ledger device
 
 #### Defined in
 
-[LedgerLivePlatformSDK/index.ts:141](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/LedgerLivePlatformSDK/index.ts#L141)
+[LedgerLivePlatformSDK/index.ts:148](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/LedgerLivePlatformSDK/index.ts#L148)
