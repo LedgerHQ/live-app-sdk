@@ -45,8 +45,8 @@ export default class LedgerLiveSDKMock
   }
 
   readonly storage: StorageSDK = {
-    save: async (_key: string, _value: string): Promise<void> => {
-      await Promise.resolve("");
+    save: async (_key: string, _value: string): Promise<boolean> => {
+      return Promise.resolve(true);
     },
     get: async (_key: string): Promise<string> => {
       return Promise.resolve("");

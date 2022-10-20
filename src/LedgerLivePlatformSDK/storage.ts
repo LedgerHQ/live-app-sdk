@@ -6,9 +6,9 @@ export interface StorageSDK {
    * Store the value with the associated key.
    * @param key - Key to find later the value
    * @param value - Value to save
-   * @throws Will throw an error if the value has not been saved.
+   * @returns The false if the value has not been saved.
    */
-  save(key: string, value: string): Promise<void>;
+  save(key: string, value: string): Promise<boolean>;
   /**
    * Retrieve the value associated to the key.
    * @param key - Key linked to the value searched
@@ -18,7 +18,7 @@ export interface StorageSDK {
 }
 
 type StoreWrapper = {
-  saveToStorage: (key: string, value: string) => Promise<void>;
+  saveToStorage: (key: string, value: string) => Promise<boolean>;
   getFromStorage: (key: string) => Promise<string>;
 };
 
@@ -29,8 +29,8 @@ class DefaultStorageSDK implements StorageSDK {
     this.wrapper = wrapper;
   }
 
-  async save(key: string, value: string): Promise<void> {
-    await this.wrapper.saveToStorage(key, value);
+  async save(key: string, value: string): Promise<boolean> {
+    return this.wrapper.saveToStorage(key, value);
   }
 
   async get(key: string): Promise<string> {

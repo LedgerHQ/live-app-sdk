@@ -7,10 +7,10 @@ describe("DefaultStorageSDK", () => {
 
     valueStored = "";
 
-    saveToStorage(key: string, value: string): Promise<void> {
+    saveToStorage(key: string, value: string): Promise<boolean> {
       this.keyStored = key;
       this.valueStored = value;
-      return Promise.resolve();
+      return Promise.resolve(true);
     }
 
     getFromStorage(key: string): Promise<string> {

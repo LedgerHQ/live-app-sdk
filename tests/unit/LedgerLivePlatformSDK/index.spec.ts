@@ -493,6 +493,42 @@ describe("LedgerLivePlatformSDK/index.ts", () => {
         }
       });
     });
+
+    describe("_saveToStorage", () => {
+      it("should succeed to store a value", async () => {
+        SDK.connect();
+
+        const key = "someRandomKey";
+        const value = "someRandomValue";
+
+        const spy = createSpyOnPostMessage(true);
+
+        const res = await SDK._saveToStorage(key, value);
+
+        expect(res).to.eq(true);
+        expect(spy).to.have.been.called.with(
+          `{"jsonrpc":"2.0","method":"storage.set","params":{"key":"${key}","value":"${value}"},"id":1}`
+        );
+      });
+    });
+
+    describe("_getFromStorage", () => {
+      it("should succeed to get a value", async () => {
+        SDK.connect();
+
+        const key = "someRandomKey";
+        const value = "someRandomValue";
+
+        const spy = createSpyOnPostMessage(value);
+
+        const res = await SDK._getFromStorage(key);
+
+        expect(res).to.eq(value);
+        expect(spy).to.have.been.called.with(
+          `{"jsonrpc":"2.0","method":"storage.get","params":{"key":"${key}"},"id":1}`
+        );
+      });
+    });
   });
 
   describe("Missing implementations", () => {

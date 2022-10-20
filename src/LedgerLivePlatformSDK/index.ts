@@ -381,7 +381,7 @@ export default class LedgerLivePlatformSDK {
    * @param value - value to save
    * @returns Nothing
    */
-  async _saveToStorage(key: string, value: string): Promise<void> {
+  async _saveToStorage(key: string, value: string): Promise<boolean> {
     return this._request("storage.set", { key, value });
   }
 

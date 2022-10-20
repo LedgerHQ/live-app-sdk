@@ -84,7 +84,7 @@ ___
 
 ### \_saveToStorage
 
-▸ **_saveToStorage**(`key`, `value`): `Promise`<`void`\>
+▸ **_saveToStorage**(`key`, `value`): `Promise`<`boolean`\>
 
 PRIVATE METHOD.
 Save `value` into the storage provided by the Wallet Server.
@@ -98,7 +98,7 @@ Save `value` into the storage provided by the Wallet Server.
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`<`boolean`\>
 
 Nothing
 
