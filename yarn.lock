@@ -1839,10 +1839,10 @@ jsesc@^2.5.1:
   resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-2.5.2.tgz#80564d2e483dacf6e8ef209650a67df3f0c283a4"
   integrity sha512-OYu7XEzjkCQ3C5Ps3QIZsQfNpqoJyZZA99wd9aWd05NCtC5pWOkShK2mkL6HXQR6/Cy2lbNdPlZBpuQHXE63gA==
 
-json-rpc-2.0@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/json-rpc-2.0/-/json-rpc-2.0-1.1.0.tgz#891eb5fd89de6a909444a2d81ae804655b757c29"
-  integrity sha512-A4v62rLgwC2U+G3hA1PKRgAXKS55ItTtjUJVbIq68yccD+AUJZSdjayxd0PLQD8i3ustyLvvaYKW6+DglScrjA==
+json-rpc-2.0@^1.4.2:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/json-rpc-2.0/-/json-rpc-2.0-1.4.2.tgz#42fa4fcddf04bde16a92a1c1f346e141b81ba1ee"
+  integrity sha512-oqiMRhWN4Q+2ySitZR5GA9vtiNOK19GTDDad0yn8/T/ND+Ap81QP6+3UMl738H4bmRbCEwhQkkBruNqx7EXfUQ==
 
 json-schema-traverse@^0.4.1:
   version "0.4.1"
