@@ -35,6 +35,7 @@ import {
 import {
   RawStellarTransaction,
   StellarTransaction,
+  StellarMemoType,
 } from "../../src/families/stellar/types";
 import {
   RawTezosTransaction,
@@ -409,7 +410,7 @@ describe("serializers.ts", () => {
         const transaction: StellarTransaction = {
           family: FAMILIES.STELLAR,
           fees: new BigNumber(1),
-          memoType: "memo type",
+          memoType: StellarMemoType.MEMO_TEXT,
           memoValue: "memo value",
           amount: new BigNumber(100),
           recipient: "recipient",
@@ -420,7 +421,7 @@ describe("serializers.ts", () => {
         expect(serializedTransaction).to.deep.eq({
           family: FAMILIES.STELLAR,
           fees: "1",
-          memoType: "memo type",
+          memoType: StellarMemoType.MEMO_TEXT,
           memoValue: "memo value",
           amount: "100",
           recipient: "recipient",
@@ -893,7 +894,7 @@ describe("serializers.ts", () => {
         const serializedTransaction: RawStellarTransaction = {
           family: FAMILIES.STELLAR,
           fees: "1",
-          memoType: "memo type",
+          memoType: StellarMemoType.MEMO_TEXT,
           memoValue: "memo value",
           amount: "100",
           recipient: "recipient",
@@ -906,7 +907,7 @@ describe("serializers.ts", () => {
         expect(transaction).to.deep.eq({
           family: FAMILIES.STELLAR,
           fees: new BigNumber(1),
-          memoType: "memo type",
+          memoType: StellarMemoType.MEMO_TEXT,
           memoValue: "memo value",
           amount: new BigNumber(100),
           recipient: "recipient",

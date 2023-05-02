@@ -45,7 +45,7 @@ ___
 
 #### Defined in
 
-[families/stellar/types.ts:16](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/families/stellar/types.ts#L16)
+[families/stellar/types.ts:23](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/families/stellar/types.ts#L23)
 
 ___
 
@@ -55,17 +55,17 @@ ___
 
 #### Defined in
 
-[families/stellar/types.ts:17](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/families/stellar/types.ts#L17)
+[families/stellar/types.ts:24](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/families/stellar/types.ts#L24)
 
 ___
 
 ### memoType
 
-• `Optional` **memoType**: `string`
+• `Optional` **memoType**: [`StellarMemoType`](../enums/StellarMemoType.md)
 
 #### Defined in
 
-[families/stellar/types.ts:18](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/families/stellar/types.ts#L18)
+[families/stellar/types.ts:25](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/families/stellar/types.ts#L25)
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 #### Defined in
 
-[families/stellar/types.ts:19](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/families/stellar/types.ts#L19)
+[families/stellar/types.ts:26](https://github.com/LedgerHQ/live-app-sdk/blob/main/src/families/stellar/types.ts#L26)
 
 ___
 

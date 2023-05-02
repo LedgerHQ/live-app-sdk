@@ -1,7 +1,11 @@
 import BigNumber from "bignumber.js";
 import { rawTxCommon, txCommon } from "../../mock/transactionCommon";
 import FAMILIES from "../types";
-import { RawStellarTransaction, StellarTransaction } from "./types";
+import {
+  RawStellarTransaction,
+  StellarTransaction,
+  StellarMemoType,
+} from "./types";
 
 export const rawTx: RawStellarTransaction = {
   ...rawTxCommon,
@@ -11,7 +15,7 @@ export const rawTx: RawStellarTransaction = {
 export const rawTxFull: Required<RawStellarTransaction> = {
   ...rawTx,
   fees: "10",
-  memoType: "[MEMO-TYPE]",
+  memoType: StellarMemoType.MEMO_TEXT,
   memoValue: "[MEMO-VALUE]",
 };
 
@@ -23,6 +27,6 @@ export const tx: StellarTransaction = {
 export const txFull: Required<StellarTransaction> = {
   ...tx,
   fees: new BigNumber("10"),
-  memoType: "[MEMO-TYPE]",
+  memoType: StellarMemoType.MEMO_TEXT,
   memoValue: "[MEMO-VALUE]",
 };

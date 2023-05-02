@@ -11,6 +11,7 @@
 - [ExchangeType](enums/ExchangeType.md)
 - [FAMILIES](enums/FAMILIES.md)
 - [FeesLevel](enums/FeesLevel.md)
+- [StellarMemoType](enums/StellarMemoType.md)
 - [TokenStandard](enums/TokenStandard.md)
 
 ### Classes
