@@ -38,7 +38,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.2.1",
     "husky": ">=8",
-    "lint-staged": ">=13",
+    "lint-staged": ">=14",
     "mocha": "^9.2.2",
     "nyc": "^15.1.0",
     "prettier": "^2.7.1",
